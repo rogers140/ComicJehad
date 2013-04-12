@@ -1,0 +1,98 @@
+#search{
+	
+	}
+#tab0{
+width:800px;
+border:0px;
+border-collapse:collapse
+}
+#tab0 th{
+background:#EFF;
+border:solid medium White;
+color:#FF7A00;
+}
+.tabR{
+border:none;
+height:0px;
+margin:0px;
+padding:0px
+}
+.tabRR{
+border-top:dotted;
+border-width:1px;
+height:0px;
+margin:0px;
+padding:0px
+}
+.tab1{
+width:150px;
+vertical-align:top;
+padding:10px;
+text-align:center;
+font-weight:bold
+}
+.tab2{
+background:White;
+width:100%;
+border:solid 1px White;
+border-collapse:separate
+}
+.tabI{
+width:124px;
+height:124px;
+text-align:center;
+vertical-align:middle;
+background:#F0F0F0
+}
+.tabT{
+text-align:left;
+vertical-align:top
+}
+.spnI{
+float:right;
+padding:1px
+}
+.spnII{
+background:#FFF7E0;
+color:#FF9010;
+font-size:small;
+border:solid 1px #FFE0A0
+}
+.spnGray{
+color:Gray;
+font-weight:bold
+}
+.divM{
+text-align:left;
+font-size:small;
+margin:30px 0px 10px 30px
+}
+.disappear{display:none;}
+.appear.tab2{display:block;}
+.displays{width:100%;float:left;text-align:left;margin:10px 0 10px 30px;}
+#content .displays a{padding:2px;}
+#content .displays a:hover{background:#ffa200;color:#fff;}
+#content .displays .active{background:#ffa200; color:#fff;}
+
+#content .position0{display:none;}
+#content .position3{display:none;}
+
+
+
+/*我写的*/
+html, body {margin:0px; padding:0px; overflow:hidden;}
+.b {margin:0px; padding:0px; overflow:auto;}
+.line0 {line-height:20px; background-color:lightyellow; padding:0px 15px;}
+.line1 {line-height:18px; background-color:lightblue; padding:0px 10px;}
+.w {position:absolute; right:10px; bottom:10px; width:160px; height:80px; 
+	overflow:hidden; border:2px groove #281; cursor:default; -moz-user-select:none;}
+.t {line-height:20px; height:20px; width:160px; overflow:hidden; 
+	background-color:#27C; color:white; 
+	font-weight:bold; border-bottom:1px outset blue; text-align:center;}
+.winBody {height:80px; width:160px; overflow-x:hidden; overflow-y:auto; 
+	border-top:1px inset blue; padding:10px; text-indent:10px; background-color:white;}
+/*我写的*/
+
+
+
+

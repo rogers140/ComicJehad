@@ -1,0 +1,240 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Âçó‰∫¨-ComicJehad</title>
+<link href="../style/common.css" rel="stylesheet" type="text/css" />
+</head>
+
+<?php
+	//include_once "DB.php"; 
+	require_once('check_safe.php');
+	//trim()Â&#65533;ΩÊ&#65533;°„Â&#65533;Ø‰ª•Ê&#65533;™Â&#65533;ªÂ°°°®¨°°®¨¥Â°„æÁöÑÁ©∫Á&#65533;ΩÂ≠&#65533;Á¨¶
+	
+	if (isset($_SESSION['username'])) 
+	{ 
+        //echo "hello,";
+        //echo "<a href=logout.php>°°°ß¨¶¢„¢„Â&#65533;∫Á&#65533;ª°°°ß¨¶ôÜ</a><br/>"; 
+	} 
+	else 
+	{ 
+		echo "ÂØπ‰∏&#65533;°°°ß¨°°°ß¨µ°°°°Ï°°Ï,Ê&#65533;°°°°Ï¨°°°ß¨°°°ß¨ø&#65533;Ê≤°Êúâ<a href=enroll.php>Á&#65533;ª°°°ß¨¶ôÜ</a>!";
+		exit;
+	} 
+	$username = $_SESSION['username'];
+	$password = $_POST['password'];
+	$cpassword =$_POST['cpassword'];
+	$theEmail = trim($_POST['theEmail']);
+	//$groupname = trim($_POST['groupname']);
+	$thename = trim($_POST['thename']);
+	$thephone = trim($_POST['thephone']);
+	$theQQ = trim($_POST['theQQ']);
+	$theID = trim($_POST['theID']);
+	$themonth = trim($_POST['select1']);
+	$theday = trim($_POST['select2']);
+	$thehobby = trim($_POST['select3']);
+	$thepic="";//Â°°°®¨°°®¨¥ÂÉè°°°ß¨°°°ß¨°°°°Ï°°ÏØÂæ&#65533;
+	//Ê&#65533;°„Ê&#65533;ÆÊ&#65533;ØÂ&#65533;¶‰∏∫Á©∫Ê£¢„°°°ß¨¶™&#65533;
+	/*
+	if(empty($username)||empty($password)||empty($cpassword)||empty($theEmail)){
+		echo "data invalid!";
+		exit;
+		}
+		
+	//ÂØ&#65533;Á†&#65533;°°°ß¨¶&#65533;øÂ∫¶Â&#65533;°°°®¨°°®¨Ê&#65533;≠
+	if(strlen($password)<6||strlen($password)>20){
+		echo "password invalid";
+		exit;
+		}
+		*/
+	//°°°ß¨°°°ß¨ø&#65533;Ê&#65533;•Â&#65533;°„Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;
+	//°°°ß¨°°°ß¨ø&#65533;Ê&#65533;•Â&#65533;°„Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;
+	require('config.php');
+	$db=new mysqli($host,$user,$dbpassword,$database);
+	$db->query("set names 'utf8'");
+	if (mysqli_connect_errno()) 	
+	{
+		echo 'Error: Could not connect to database. Please try again later.';
+		exit;
+	}
+	//Ê&#65533;•°°°ß¨°°°ß¨Ø¢Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;Ôº&#65533;ÁúãÂ°´ÂÜôÁöÑÁ&#65533;°°°°Ï¨Ê&#65533;°°°°Ï°°ÏÂêçÊ&#65533;ØÂ&#65533;¶Â°°°°Ï°°Ï≤Áª&#65533;Â≠&#65533;Â&#65533;°°°°Ï¨
+	//$sql = "select * from user where username = "; 
+	//$result = $db->query($sql);
+	//if (DB::isError($result) ){ 
+	//	echo "Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;°°°ß¨¶îô°°°ß¨°°°ß¨ØØÔº&#65533;".DB::errorMessage($result); 
+	//	exit(); 
+	//} 
+	
+	
+	else{
+		//rogers edit on 9.8 
+		$sql = "select * from user where username='$username'";
+		$result = $db->query($sql);
+		$row = $result->fetch_row();
+		$groupname = $row[3];
+		$thepic=$row[5];
+		$f=$_FILES['pic'];
+		//echo GetFiletype($f['name']);
+		//°°°ß¨¶úÄ°°°ß¨°°°ß¨¶&#65533;Ê&#65533;¥Ê&#65533;°„‰∏°°°®¨°°®¨Âº†°°°ß¨°°°ß¨°°°°°Ï¨Ôºåthegroup, benzi(groupurl)
+		if(GetFiletype($f['name'])!='.'){//‰∏&#65533;‰º†‰∫&#65533;Â°°°®¨°°®¨¥ÂÉè
+			//echo "<script>alert('‰∏&#65533;‰º†‰∫&#65533;Â°°°®¨°°®¨¥ÂÉè');</script>"; 
+      		$dest_dir='../headphoto';//°°°ß¨°°°ß¨ÆæÂÆ&#65533;‰∏&#65533;‰º†Á&#65533;ÆÂΩ&#65533; 
+      		$timestamp=date("y m d h m s");
+      		$filetype=GetFiletype($f['name']);
+
+// add by demonbug
+if (($filetype == ".php") || ($filetype == ".jsp") || ($filetype == ".asp") || ($filetype == ".aspx"))
+{
+echo "invalid file type";
+exit;
+}
+
+      		//$filename=iconv("utf-8","gbk",$f['name']); 
+      		$thepic=$dest_dir.'/'.$timestamp.$filetype;//°°°ß¨°°°ß¨ÆæÁΩÆÊñá‰ª∂Âêç‰∏∫Ê&#65533;•ÊúüÂ&#65533;†‰∏&#65533;Êñá‰ª∂Âêç°°°ß¨¶&#65533;øÂÖç°°°ß¨¶áçÂ°°°®¨°°®¨&#65533; 
+      		$r=move_uploaded_file($f['tmp_name'],$thepic); 
+      		chmod($thepic, 0755);//°°°ß¨°°°ß¨ÆæÂÆ&#65533;‰∏&#65533;‰º†ÁöÑÊñá‰ª∂ÁöÑÂ°¿&#65533;Ê¢„°°°®¨¨
+
+			$sql1 = "UPDATE user SET pwd = '".$password."', thename='".$thename."', thepic='".$thepic."', thephone='".$thephone."', theQQ='".$theQQ."',theEmail='".$theEmail."',theID='".$theID."', themonth='".$themonth."',theday='".$theday."',thehobby='".$thehobby."' WHERE username='$username'";
+			$result1=$db->query($sql1);
+			$sql2="UPDATE benzi SET groupurl='".$thepic."' where groupname='".$groupname."'";
+			//$sql2="UPDATE benzi SET groupurl='".$thepic."'";
+			$result2=$db->query($sql2);
+			if(($result1==null)||($result2==null)){
+				echo "<script>alert('Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;Áª¥Ê&#65533;°°°®¨°°®¨‰∏≠...°°°ß¨°°°ß¨Ø°°°°Ï°°ÏÁ°°°°Ï¨&#65533;Âêé°°°ß¨¶áç°°°ß¨°°°ß¨Ø&#65533;');</script>";
+			}
+			else{
+				echo "<script>alert('‰øÆÊ&#65533;πÊàêÂäüÔº&#65533;');</script>";
+			}
+		}
+		else{//Ê≤°Êúâ‰∏&#65533;‰º†Â°°°®¨°°®¨¥ÂÉè
+			//echo "<script>alert('Ê≤°Êúâ‰∏&#65533;‰º†Â°°°®¨°°®¨¥ÂÉè');</script>";
+			$sql1 = "UPDATE user SET pwd = '".$password."', thename='".$thename."', thephone='".$thephone."', theQQ='".$theQQ
+			."',theEmail='".$theEmail."',theID='".$theID."', themonth='".$themonth."',theday='".$theday."',thehobby='".$thehobby."' WHERE username='$username'";
+			$result1=$db->query($sql1);
+			if($result1==null){
+				echo "<script>alert('Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;Áª¥Ê&#65533;°°°®¨°°®¨‰∏≠...°°°ß¨°°°ß¨Ø°°°°Ï°°ÏÁ°°°°Ï¨&#65533;Âêé°°°ß¨¶áç°°°ß¨°°°ß¨Ø&#65533;');</script>";
+			}
+			else{
+				echo "<script>alert('‰øÆÊ&#65533;πÊàêÂäüÔº&#65533;');</script>";
+			}
+			
+		}
+      	
+		//rogers edit on 9.8
+
+		//Â°„&#65533;Á°°°®¨°°®¨æÂ&#65533;¢‰ø°Ê&#65533;ØÊèíÂ&#65533;•Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;ÁöÑgroup°°°ß¨°°°ß¨°°°°°Ï¨
+		
+		// $sql1 = "UPDATE thegroup SET groupname = '".$groupname."' WHERE username='$username'";
+		
+		// $result1 = $db->query($sql1);
+
+		// if($result1&&$result1->num_rows&&$groupname!=""){
+		// //Ê&#65533;•°°°ß¨°°°ß¨Ø¢Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;Ôº&#65533;ÁúãÂ°´ÂÜôÁöÑÁ°°°®¨°°®¨æÂ&#65533;¢ÂêçÊ&#65533;ØÂ&#65533;¶Â°°°°Ï°°Ï≤Áª&#65533;Â≠&#65533;Â&#65533;°°°°Ï¨
+		// 	echo "<script language='javascript'>
+  //     	  		alert('Á°°°®¨°°®¨æÂ&#65533;¢ÂêçÂ°°°°Ï°°Ï≤Â≠&#65533;Â&#65533;°°°°Ï¨!');
+		// 		history.back(-1);
+  //       		</script>";
+  //   	}
+		// else{//Á°°°®¨°°®¨æÂ&#65533;¢Âêç‰∏&#65533;Â≠&#65533;Â&#65533;°°°°Ï¨Ôº&#65533;Â&#65533;Ø‰ª•Ê&#65533;¥Ê&#65533;π
+		// 	echo "<script>alert('got!');</script>";
+		// 	if($_FILES['thepic']!=null){
+		// 		echo "<script>alert('got!');</script>";
+		// 		$f=$_FILES['thepic']; 
+  //     			$dest_dir='../headphoto';//°°°ß¨°°°ß¨ÆæÂÆ&#65533;‰∏&#65533;‰º†Á&#65533;ÆÂΩ&#65533; 
+  //     			$timestamp=date("y m d h m s");
+  //     			$filetype=GetFiletype($f['name']);
+  //     			//$filename=iconv("utf-8","gbk",$f['name']); 
+  //     			$thepic=$dest_dir.'/'.$timestamp.$filetype;//°°°ß¨°°°ß¨ÆæÁΩÆÊñá‰ª∂Âêç‰∏∫Ê&#65533;•ÊúüÂ&#65533;†‰∏&#65533;Êñá‰ª∂Âêç°°°ß¨¶&#65533;øÂÖç°°°ß¨¶áçÂ°°°®¨°°®¨&#65533; 
+  //     			$r=move_uploaded_file($f['tmp_name'],$thepic); 
+  //     			chmod($thepic, 0755);//°°°ß¨°°°ß¨ÆæÂÆ&#65533;‰∏&#65533;‰º†ÁöÑÊñá‰ª∂ÁöÑÂ°¿&#65533;Ê¢„°°°®¨¨
+		// 	}
+		// 	//Â°„&#65533;Á&#65533;°°°°Ï¨Ê&#65533;°°°°Ï°°Ï‰ø°Ê&#65533;ØÊèíÂ&#65533;•Ê&#65533;°„Ê&#65533;ÆÂ∫&#65533;ÁöÑuser°°°ß¨°°°ß¨°°°°°Ï¨
+		// 	//$sql2 = "UPDATE user SET pwd = '".$password."', groupname = '".$groupname."', thename='".$thename."', thepic='".$thepic."', thephone='".$thephone."', theQQ='".$theQQ."',theEmail='".$theEmail."',theID='".$theID."', themonth='".$themonth."',theday='".$theday."',thehobby='".$thehobby."' WHERE username='$username'";
+		// 	$sql2 = "UPDATE user SET pwd = '".$password."', thename='".$thename."', thepic='".$thepic."', thephone='".$thephone."', theQQ='".$theQQ."',theEmail='".$theEmail."',theID='".$theID."', themonth='".$themonth."',theday='".$theday."',thehobby='".$thehobby."' WHERE username='$username'";
+
+		// 	$result2= $db->query($sql2);
+
+		// 	if(!$result2){
+		// 		echo 'Ê&#65533;9
+		// 		exit;
+		// 	}
+		// 	if($username!=""){
+		// 		echo "<script language='javascript'>
+  //     	 			alert('Ê&#65533;≠ÂñúÊ&#65533;°°°°Ï¨‰øÆÊ&#65533;πÊàêÂäü!'');
+		// 		</script>";
+		// 	}
+		// }
+	}
+	?>
+<body id="bg"  >
+	<div id = "container">
+    	<div class ="top"><img src="../pic/TOP.gif" /></div>
+        <div class = "main">
+        	<div class = "left">
+       		  <div class="logo" ><img id="bg" src="../pic/logo.gif" /></div>
+           	  <div id="item" align="center" ><a href="info.php">ÊúÄÊ&#65533;°„ÊÉÖÊ&#65533;•</a></div>
+              <div id="item" align="center" ><a href="enroll.php">Á°°°®¨°°®¨æÂ&#65533;¢Ê&#65533;•Âêç</a></div>
+              <div id="item" align="center"><a href="benzi.php">Ê&#65533;¨Â≠&#65533;‰ø°Ê&#65533;Ø</a></div>
+              <div id="item" align="center"><a href="../pages/review.html">ÂéÜÂ°¿&#65533;Âõû°°°ß¨¶°æ</a></div>
+              <div id="item" align="center"><a href="aboutus.php">Â&#65533;≥‰∫&#65533;Êàë‰ª¨</a></div>
+            </div>
+            <div class = "content">
+            	<div id="header"><img src="../pic/header2.gif" />
+                </div>
+               <br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<table align="center">
+            		<tr>
+            			<td><img src="<?php echo $thepic;?>" width="150px" height="150px"></td>
+            		</tr>
+                    <tr>
+                        <td>Á°°°®¨°°®¨æÂ&#65533;¢ÂêçÁ°°°®¨¨°„Ôº&#65533;</td>
+                        <td><p><?php echo $groupname ?></p></td>
+                    </tr>
+                    <tr>
+                        <td>°°°ß¨°°°ß¨¥&#65533;°°°ß¨°°°ß¨¥£‰∫∫Ôº&#65533;</td>
+                        <td><p><?php echo $thename ?></p></td>
+                    </tr>
+            	</table>
+				<div id="forCenter">
+                <a  href="./editprofile.php"><input type="submit" name="btnSubmit" value="‰øÆÊ&#65533;π‰ø°Ê&#65533;Ø" id="btnSubmit" /></a>
+                ††
+                <select name = "myselect" onchange="location.href=this.options[this.selectedIndex].value;">
+                	<option value="" selected="selected">ÂèÇÂ&#65533;†Ê¥ªÂ&#65533;°°°°Ï¨</option>
+                    <option value="editbenzi.php">‰∏&#65533;‰º†Ê&#65533;¨Â≠&#65533;</option>
+                    <option value="editwa.php">‰∏&#65533;‰º†Â&#65533;°°°°Ï¨°°°ß¨°°°ß¨æπ</option>
+                </select>
+                </a>
+                ††
+                <a href="enroll.php"><input type="submit" name="btnSubmit" value="Ê≥°°°°Ï¨°°°ß¨¶îÄÁ&#65533;ª°°°ß¨¶ôÜ" id="btnSubmit" /></a>
+                
+          		</div>
+          </div>		
+        </div>
+        <div class="linker" align="center">
+        	<div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            <div class="sublinker"></div>
+            
+        </div>
+        <div class = "footer" align="center"><p>Copyright © 2012. All Rights Reserved</p></div>
+	</div>
+</body>
+
+    
+
+</html>

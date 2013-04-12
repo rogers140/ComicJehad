@@ -1,0 +1,73 @@
+/* CSS Document */
+#header{
+	width:1000px;
+	height:25px;
+	margin:0 auto;
+	}
+#left{
+	margin:0 auto;
+	float:left;
+	}
+#right{
+	margin:0 auto;
+	float:right;
+	}
+#content{
+	width:1000px;
+	margin:0 auto;
+	}
+#logo{
+	width:250px;
+	height:200px;
+	float:left;
+	}
+#headerjpg{
+	width:1000px;
+	height:450px;
+	margin:0 auto;
+	}
+#latestNews{
+	width:750px;
+	height:300px;
+	float:right;
+	}
+#login{
+	width:250px;
+	height:80px;
+	float:left;
+	}
+#linker{
+	width:250px;
+	height:200px;
+	float:left;
+	}
+#aboutus{
+	width:350px;
+	height:200px;
+	float:left;
+	}
+#teaminfo{
+	width:400px;
+	height:200px;
+	float:right;
+	}
+#footer{
+	width:1000px;
+	height:50px;
+	margin:0 auto;
+	float:left;
+	}
+.s1{
+	float:left
+	padding:0px 6px 0px 12px
+	}
+.s2{
+	color:#999999;
+	float:right
+	}
+#main{
+	width:750px;
+	height:300px;
+	float:right;
+	
+	}

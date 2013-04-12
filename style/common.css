@@ -1,0 +1,118 @@
+#bg{
+	background:url(../pic/bg.gif) 0 0px repeat-x
+	}
+#container {
+	width: 1000px;
+	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
+}
+.s1{
+	float:left;
+	clear:both;
+	padding:0px 6px 0px 12px;
+	}
+.s2{
+	color:#999999;
+	float:right
+	}
+#forCenter{
+	margin:auto auto;
+	text-align:center;
+	}
+#news{
+	width:850px;
+	float:right;
+	
+	}
+#news a:link{
+	color:#333333;
+	text-decoration:none;
+	}
+#news a:hover{
+	color:#F00;
+	}
+#news a:visited{
+	color:#666;
+	}
+.logo{
+	width:150px;
+	height:152px;
+	}
+#header{
+	background:url(../pic/header.gif) no-repeat #FFFFFF 12px 0px;
+	width:850px;
+	overflow:hidden;
+	float:right;
+	height: 60px;
+	}
+#item a:link{
+	color:#FF7A00;
+	text-decoration: none
+	
+	}
+#item a:visited{
+	color:#FF7A00;
+	text-decoration:none
+	}
+#item a:hover{
+	cursor:pointer;
+	background-color:#FC0;
+	}
+
+#item{
+	width:145px;
+	height:40px;
+	line-height:40px;
+	border-style:dotted;
+	border-color: #D6D6D6;
+	border-width:thin;
+	font-weight: bold;
+	background:url(../pic/bg1.gif) 0 -180px repeat-x;
+	margin-bottom: 7px;
+	}
+
+.top{
+	width:1000px;
+	height:200px;
+	margin: 0 auto;
+}
+.main{
+	width:1000px;
+	margin:0 auto;	
+}
+.linker{
+	width:1000px;
+	margin:0 auto;
+	height:50px;
+	float:left
+	}
+.sublinker{
+	width:100px;
+	margin:0 auto;
+	height:50px;
+	float:left;
+	}
+.footer{
+	width:1000px;
+	height:100px;
+	margin:0 auto;
+	float:left
+}
+.left{
+	width:150px;
+	float:left;
+}
+.content{
+	width:850px;
+	float:right;
+}
+#hid{
+	width:0px;
+	height:0px;
+	display:none;
+	}
+#hengxian{
+	text-decoration:none;
+	}
+#lianjie a:visited{
+	color:blue;
+	}
